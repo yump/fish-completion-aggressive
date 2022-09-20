@@ -1,0 +1,15 @@
+#!/usr/bin/env bpftrace
+
+t:syscalls:sys_enter_open*,t:syscalls:sys_enter_getdents*,t:syscalls:sys_enter_newfstatat
+/ comm == "fish" || comm == "bash" || comm == "fish-patch"/
+{
+  @calls[comm,pid,probe] = count();
+}
+
+interval:s:5
+{
+  time();
+  print(@calls);
+  clear(@calls);
+}
+
