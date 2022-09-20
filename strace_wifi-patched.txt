@@ -1,0 +1,16 @@
+403091      0.000000 clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x7fd28ae45910, parent_tid=0x7fd28ae45910, exit_signal=0, stack=0x7fd28a645000, stack_size=0x7fff00, tls=0x7fd28ae45640} => {parent_tid=[538079]}, 88) = 538079
+403091      0.000454 openat(AT_FDCWD, "/tmp/completion_test_sshfs-talonbolt", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 7
+538079      0.256402 exit(0)            = ?
+538079      0.000055 +++ exited with 0 +++
+403091      0.075082 clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x7fd28ae45910, parent_tid=0x7fd28ae45910, exit_signal=0, stack=0x7fd28a645000, stack_size=0x7fff00, tls=0x7fd28ae45640} => {parent_tid=[538083]}, 88) = 538083
+538083      0.000205 openat(AT_FDCWD, "/home/rhaley/.local/share/fish/fish_history", O_RDONLY|O_CLOEXEC <unfinished ...>
+403091      0.000041 clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x7fd289da8910, parent_tid=0x7fd289da8910, exit_signal=0, stack=0x7fd2895a8000, stack_size=0x7fff00, tls=0x7fd289da8640} <unfinished ...>
+538083      0.000015 <... openat resumed>) = 7
+403091      0.000051 <... clone3 resumed> => {parent_tid=[538084]}, 88) = 538084
+538084      0.000110 openat(AT_FDCWD, "/tmp/completion_test_sshfs-talonbolt", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 8
+538084      0.000902 openat(AT_FDCWD, "/tmp/completion_test_sshfs-talonbolt", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 7
+538084      0.000387 exit(0)            = ?
+538084      0.000145 +++ exited with 0 +++
+538083      0.003746 openat(AT_FDCWD, "/tmp/completion_test_sshfs-talonbolt", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 7
+538083      0.514565 exit(0)            = ?
+538083      0.000054 +++ exited with 0 +++

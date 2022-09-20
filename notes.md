@@ -1,10 +1,11 @@
 https://github.com/fish-shell/fish-shell/discussions/9217
 
 Strace command:
-sudo strace -c -f -p 403091 # $fish_pid from the other terminal
+    sudo strace -c -f -p 403091 # $fish_pid from the other terminal
 
-# Without patch, "cd " pre-filled, press <tab>:
+# Without patch, "cd " pre-filled, press \<tab\>:
 
+```
 % time     seconds  usecs/call     calls    errors syscall
 ------ ----------- ----------- --------- --------- ----------------
  79.94    0.037000        5285         7           poll
@@ -27,10 +28,11 @@ sudo strace -c -f -p 403091 # $fish_pid from the other terminal
   0.00    0.000000           0         3           clone3
 ------ ----------- ----------- --------- --------- ----------------
 100.00    0.046286          11      4197        43 total
+```
 
+# With patch, "cd " pre-filled, press \<tab\>:
 
-# With patch, "cd " pre-filled, press <tab>:
-
+```
 % time     seconds  usecs/call     calls    errors syscall
 ------ ----------- ----------- --------- --------- ----------------
  79.52    0.024528        4087         6           poll
@@ -55,9 +57,11 @@ sudo strace -c -f -p 403091 # $fish_pid from the other terminal
   0.00    0.000000           0         1           restart_syscall
 ------ ----------- ----------- --------- --------- ----------------
 100.00    0.030847          14      2193        43 total
+```
 
 Without patch on sshfs over ethernet:
 
+```
 % time     seconds  usecs/call     calls    errors syscall
 ------ ----------- ----------- --------- --------- ----------------
  71.52    0.041617        5945         7           poll
@@ -80,9 +84,11 @@ Without patch on sshfs over ethernet:
   0.00    0.000000           0         3           rseq
 ------ ----------- ----------- --------- --------- ----------------
 100.00    0.058191          13      4220        43 total
+```
 
 With patch on sshfs over ethernet:
 
+```
 % time     seconds  usecs/call     calls    errors syscall
 ------ ----------- ----------- --------- --------- ----------------
  76.43    0.007975        1329         6           poll
@@ -108,6 +114,23 @@ With patch on sshfs over ethernet:
   0.00    0.000000           0         1           lseek
 ------ ----------- ----------- --------- --------- ----------------
 100.00    0.010434           8      1170      1043 total
+```
 
-On sshfs over flaky wifi, completions do not reliably appear. They
-show eventually after hammering on <tab>, and the patched brance seems flakier than the packaged version (3.5.0).
+On sshfs over flaky wifi, completions do not reliably appear. They show
+eventually after hammering on <tab>, and the patched branch seems possibly
+flakier than the packaged version (3.5.0).
+
+In the packaged version, after the completions appear strace in non-counting
+mode shows that the `openat()` sycalls continue for several seconds, at an
+interval corresponding to a couple RTTs.  For some reason, this doesn't show up
+in the usecs/call column with counting strace.  See strace\_wifi.txt and
+strace\_wifi-patched.txt, collected with:
+
+    sudo strace -r -f -p 394642 -e openat,%process --output=strace_wifi.txt
+
+Strangely, when strace is used as in the patch commit message:
+
+    strace -C -f -e openat fish --no-config -c 'complete -C "cd /tmp/completion_test/"' >/dev/null
+   
+`openat()` is not called for the subdirectories.  The same is true if `complete
+-C "cd "` is used at an interactive prompt with strace attached.
