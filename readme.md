@@ -59,7 +59,7 @@ Strace command:
 100.00    0.030847          14      2193        43 total
 ```
 
-Without patch on sshfs over ethernet:
+# Without patch on sshfs over ethernet:
 
 ```
 % time     seconds  usecs/call     calls    errors syscall
@@ -86,7 +86,7 @@ Without patch on sshfs over ethernet:
 100.00    0.058191          13      4220        43 total
 ```
 
-With patch on sshfs over ethernet:
+# With patch on sshfs over ethernet:
 
 ```
 % time     seconds  usecs/call     calls    errors syscall
@@ -117,7 +117,7 @@ With patch on sshfs over ethernet:
 ```
 
 On sshfs over flaky wifi, completions do not reliably appear. They show
-eventually after hammering on <tab>, and the patched branch seems possibly
+eventually after hammering on \<tab\>, and the patched branch seems possibly
 flakier than the packaged version (3.5.0).
 
 In the packaged version, after the completions appear strace in non-counting
