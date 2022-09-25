@@ -134,3 +134,16 @@ Strangely, when strace is used as in the patch commit message:
    
 `openat()` is not called for the subdirectories.  The same is true if `complete
 -C "cd "` is used at an interactive prompt with strace attached.
+
+# Why does interactive use call openat() when complete -C does not?
+
+Attempts at getting perf and bpftrace to profile syscalls by userspace stacks
+both failed. (See `perf_record_openat.fish`.) So we turn to the debugger. 
+
+rr trace collected with procedure in `collect_debug_traces.fish`.
+
+break on complete() and wopendir().
+
+Observe that wopendir() is being called a bunch because the flag, `expand_flag::special_for_cd_autocomplete` is set. This flag is forwarded from `completer_t.flags.autosuggestion` in `completer_t::complete_param_expand` at complete.cpp:1064.
+
+After investigation with gdb, it appears that `complete -C"cd "` 
